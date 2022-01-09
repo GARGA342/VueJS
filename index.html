@@ -1,1 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div id="page"></div>
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) 
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    -->
+    
+    <!-- VueJS -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <script>
+        new Vue({
+            el:"#page",
+            template: `
+                <div class="container mt-5">  
+                    <h1>Form Content</h1>
+                    <hr />  
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input v-model="name" type="text" class="form-control" id="name" aria-describedby="nameHelp">
+                            <small id="nameHelp" class="form-text text-muted">If you don't enter this field, your comment will be anonymous.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input v-model="email" type="email" class="form-control" id="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="text">Text</label>
+                            <textarea v-model="text" id="text" class="form-control"></textarea>
+                        </div>
+                        <button type="submit" v-on:click="register" class="btn btn-primary">Register</button>
+                    </form>
+
+                    <div class="form-group mt-5">
+                        <div class="list-group-item" v-for="(item, index) in items">
+                            <span><strong>Name: </strong>{{item.name}}</span><br>
+                            <span><strong>Email: </strong>{{item.email}}</span><br>
+                            <p><span><strong>Text: </strong>{{item.text}}</span></p>
+                            
+                            <a href="#" >Delete</a>
+                        </div>
+                    </div>
+                </div>
+            `,
+            data(){
+                return{
+                    items: [],
+                    name: '',
+                    email: '',
+                    text: ''
+                }
+            },
+            methods: {
+                register(){
+                    /*if(this.email.trim() === '' || this.text.trim() === ''){
+                        return alert('The fields "email" and "text" must be filled!')
+                    }*/
+
+                    this.items.push({
+                        name: this.name,
+                        email: this.email,
+                        text: this.text
+                    })
+                }
+            }
+        })
+    </script>
+
+  </body>
+</html>
