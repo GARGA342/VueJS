@@ -93,6 +93,11 @@
                         name: item.name.trim() === '' ? 'anonymous' : item.name
                     }))
                 }
+            },
+            watch: {
+                items(val){
+                    console.log('value', val)
+                }
             }
         })
     </script>
