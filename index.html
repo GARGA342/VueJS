@@ -42,16 +42,17 @@
                             <label for="text">Text</label>
                             <textarea v-model="text" id="text" class="form-control"></textarea>
                         </div>
-                        <button type="submit" v-on:click="register" class="btn btn-primary">Register</button>
+                        <button type="submit" class="btn btn-primary" v-on:click.prevent="register">Register</button>
                     </form>
 
                     <div class="form-group mt-5">
-                        <div class="list-group-item" v-for="(item, index) in items">
+                        <div class="list-group-item" v-for="(item, index) in allItems">
                             <span><strong>Name: </strong>{{item.name}}</span><br>
                             <span><strong>Email: </strong>{{item.email}}</span><br>
                             <p><span><strong>Text: </strong>{{item.text}}</span></p>
-                            
-                            <a href="#" >Delete</a>
+                            <div>
+                                <a href="#" v-on:click.prevent="remove(index)">Delete</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -66,15 +67,31 @@
             },
             methods: {
                 register(){
-                    /*if(this.email.trim() === '' || this.text.trim() === ''){
+                    if(this.email.trim() === '' || this.text.trim() === ''){
                         return alert('The fields "email" and "text" must be filled!')
-                    }*/
+                    }else{
 
-                    this.items.push({
-                        name: this.name,
-                        email: this.email,
-                        text: this.text
-                    })
+                        this.items.push({
+                            name: this.name,
+                            email: this.email,
+                            text: this.text
+                        })
+
+                        this.name = ''
+                        this.email = ''
+                        this.text = ''
+                    }
+                },
+                remove(index){
+                    this.items.splice(index,1)
+                }
+            },
+            computed: {
+                allItems(){
+                    return this.items.map(item => ({
+                        ...item,
+                        name: item.name.trim() === '' ? 'anonymous' : item.name
+                    }))
                 }
             }
         })
